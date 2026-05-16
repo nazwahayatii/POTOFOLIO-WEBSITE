@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Nazwa Hayati</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@1.0.28/build/spline-viewer.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+</head>
+<body>
+<nav id="navbar" class="fixed top-0 left-0 w-full z-[1000] transition-all duration-500 px-6 py-4 flex justify-between items-center bg-transparent">
+    <div class="flex items-center gap-2 group cursor-pointer">
+        <div class="w-2 h-2 bg-red-600 rounded-full group-hover:scale-150 transition-transform duration-300 shadow-[0_0_10px_#dc2626]"></div>
+        <span class="font-['Krona_One'] text-xl tracking-wider text-white">NAZWA</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-2 bg-white/5 backdrop-blur-lg border border-white/10 p-1.5 rounded-2xl">
+        <a href="#home" class="flex items-center gap-2 px-4 py-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300">
+            <i class="fa-solid fa-house text-sm"></i>
+            <span class="text-xs font-bold tracking-widest">HOME</span>
+        </a>
+        <a href="#about" class="flex items-center gap-2 px-4 py-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300">
+            <i class="fa-solid fa-user text-sm"></i>
+            <span class="text-xs font-bold tracking-widest">ABOUT</span>
+        </a>
+        <a href="#skills-section" class="flex items-center gap-2 px-4 py-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300">
+            <i class="fa-solid fa-laptop-code text-sm"></i>
+            <span class="text-xs font-bold tracking-widest">SKILL</span>
+        </a>
+        <a href="#projects-section" class="flex items-center gap-2 px-4 py-2 rounded-xl text-white/70 hover:text-white hover:bg-white/10 transition-all duration-300">
+            <i class="fa-solid fa-folder-open text-sm"></i>
+            <span class="text-xs font-bold tracking-widest">PROJECT</span>
+        </a>
+    </div>
+
+    <div class="flex items-center gap-4">
+        <a href="javascript:void(0)" id="loginBtn" class="hidden sm:flex items-center gap-2 bg-red-700 hover:bg-red-600 text-white px-5 py-2 rounded-xl shadow-lg shadow-red-900/20 transition-all duration-300 group">
+            <i class="fa-solid fa-user-lock text-sm group-hover:rotate-12 transition-transform"></i>
+            <span class="text-xs font-bold tracking-widest">LOGIN</span>
+        </a>   
+        <button id="menuToggle" class="md:hidden text-white p-2">
+            <i class="fa-solid fa-bars-staggered text-2xl"></i>
+        </button>
+    </div>
+
+    <div id="mobileMenu" class="fixed inset-y-0 right-0 w-64 bg-[#4a0b0b] translate-x-full transition-transform duration-500 z-[1001] flex flex-col p-8 gap-6 shadow-2xl md:hidden">
+        <button id="closeMenu" class="self-end text-white text-2xl">&times;</button>
+        <a href="#home" class="mobile-link text-white font-bold tracking-widest text-lg border-b border-white/10 pb-2">HOME</a>
+        <a href="#about" class="mobile-link text-white font-bold tracking-widest text-lg border-b border-white/10 pb-2">ABOUT</a>
+        <a href="#skill-section" class="mobile-link text-white font-bold tracking-widest text-lg border-b border-white/10 pb-2">SKILL</a>
+        <a href="#projects-section" class="mobile-link text-white font-bold tracking-widest text-lg border-b border-white/10 pb-2">PROJECT</a>
+        <a href="javascript:void(0)" id="mobileLoginBtn" class="bg-red-700 hover:bg-red-600 text-white text-center py-3 rounded-xl font-bold mt-4 transition-colors">LOGIN</a>
+    </div>
+</nav>
+
+<div class="modal-overlay" id="searchModal">
+    <span class="close-modal">&times;</span>
+    <div class="search-box">
+        <input type="text" placeholder="Search project...">
+    </div>
+</div>
+
+<div id="loginModal" class="fixed inset-0 z-[2000] hidden items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 transition-opacity duration-300">
+    <div class="relative w-full max-w-md bg-[#2b0202] border border-white/10 rounded-3xl p-8 shadow-2xl transform scale-95 transition-transform duration-300 id-modal-content">
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors text-2xl">&times;</button>
+
+        <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Welcome Back</h3>
+            <p class="text-white/60 text-xs mt-1">Please enter your details to sign in</p>
+        </div>
+
+        <form action="#" class="space-y-4" id="loginForm">
+            <div>
+                <label class="block text-white/70 text-xs font-semibold mb-1.5 ml-1">Full Name</label>
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-user absolute left-4 text-white/40 text-sm"></i>
+                    <input type="text" required placeholder="Nazwa Hayati" class="w-full bg-black/30 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-white/70 text-xs font-semibold mb-1.5 ml-1">Email Address</label>
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-envelope absolute left-4 text-white/40 text-sm"></i>
+                    <input type="email" required placeholder="nazwa@example.com" class="w-full bg-black/30 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-white/70 text-xs font-semibold mb-1.5 ml-1">Password</label>
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-lock absolute left-4 text-white/40 text-sm"></i>
+                    <input type="password" required placeholder="••••••••" class="w-full bg-black/30 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-red-900/30 transition-all duration-300 mt-2 active:scale-[0.98]">
+                SIGN IN
+            </button>
+        </form>
+    </div>
+</div>
+
+<main class="main-container" id="home">
+    <div class="hero-text">
+        <h3 class="reveal d-1">Hi, I'm</h3>
+        <h1 class="reveal d-2">
+            NAZWA <span class="accent">HAYATI</span><br>
+            UI/UX Designer &<br>
+            <span class="accent">Web Developer</span>
+        </h1>
+        <p class="description reveal d-3">
+            Building modern, reliable, and fast experience with a focus on clean UI and solid engineering.
+        </p>
+
+        <div class="btn-group reveal d-5">
+            <a href="#contact-section" class="action-btn flex items-center justify-center">CONTACT US</a>
+        </div>
+    </div>
+
+    <div class="robot-section">
+        <div class="spline-wrapper reveal d-2">
+<spline-viewer url="https://prod.spline.design/28gZfpaAf5XFrTBK/scene.splinecode"></spline-viewer>
+        </div>
+    </div>
+</main>
+<!-- about me -->
+<section id="about" class="relative min-h-screen bg-white py-16 overflow-hidden font-sans">
+    
+    <!-- 1. Teks Dekoratif Atas: CODE (Sesuai Foto Pertama) -->
+    <div class="absolute top-10 left-[-2%] text-[#800000] opacity-[0.03] text-9xl font-black select-none pointer-events-none tracking-[0.5em] uppercase">
+        CODE
+    </div>
+
+    <!-- 2. Teks Dekoratif Bawah: DESIGN (Sesuai Foto Kedua) -->
+    <div class="absolute bottom-10 right-[-5%] text-[#800000] opacity-[0.03] text-9xl font-black select-none pointer-events-none tracking-[0.5em] uppercase">
+        DESIGN
+    </div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-16">
+        <!-- Judul "ABOUT ME" Center -->
+        <div class="flex flex-col items-center justify-center mb-16 relative z-10">
+            <h2 class="text-[#800000] font-black tracking-[0.3em] text-xl md:text-2xl uppercase">About Me</h2>
+            <div class="h-[3px] w-20 bg-[#800000] mt-2"></div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-12 items-center lg:items-start justify-between">
+            
+            <!-- Sisi Kiri: Konten Utama -->
+            <div class="w-full lg:w-3/5 relative z-10 text-center lg:text-left">
+                <div class="mb-4">
+                    <span class="bg-[#800000] text-white px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest shadow-sm">
+                        Available for Projects
+                    </span>
+                </div>
+                
+                <h1 class="text-4xl md:text-5xl font-black text-[#1a1a1a] leading-tight mb-2">
+                    NAZWA <span class="text-[#800000]">HAYATI</span>
+                </h1>
+
+                <div class="text-xl md:text-2xl mb-6 text-gray-700 font-medium">
+                    I'm a <span id="typewriter" class="text-[#800000] border-r-2 border-[#800000]"></span>
+                </div>
+
+                <p class="text-gray-500 text-sm md:text-base leading-relaxed max-w-xl mx-auto lg:mx-0 mb-8 text-justify lg:text-left">
+                    A dedicated Software Engineering student at <span class="text-[#800000] font-bold">SMK N Tengaran</span>. I specialize in building responsive web applications with a focus on clean code and intuitive user experience.
+                </p>
+
+                <!-- ELEMEN BARU: Mengisi Ruang Kosong dengan Tech Stack -->
+                <div class="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
+                    <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold text-gray-400 hover:text-[#800000] hover:border-[#800000] transition-all duration-300">#HTML5</span>
+                    <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold text-gray-400 hover:text-[#800000] hover:border-[#800000] transition-all duration-300">#CSS3</span>
+                    <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold text-gray-400 hover:text-[#800000] hover:border-[#800000] transition-all duration-300">#TailwindCSS</span>
+                    <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold text-gray-400 hover:text-[#800000] hover:border-[#800000] transition-all duration-300">#Bootstrap</span>
+                    <span class="px-4 py-2 bg-gray-50 border border-gray-100 rounded-lg text-xs font-bold text-gray-400 hover:text-[#800000] hover:border-[#800000] transition-all duration-300">#UI/UX</span>
+                </div>
+
+                <!-- Kartu Philosophy -->
+                <div class="relative max-w-sm mx-auto lg:mx-0 mb-10 text-left">
+                    <div class="bg-white border border-gray-100 p-4 rounded-xl shadow-lg flex items-center gap-4">
+                        <div class="bg-[#800000] p-3 rounded-lg text-white">
+                            <i class="fa-solid fa-lightbulb text-lg animate-pulse"></i>
+                        </div>
+                        <div>
+                            <p class="text-[9px] font-black text-gray-400 uppercase tracking-widest mb-0.5">Philosophy</p>
+                            <p class="italic text-gray-700 text-sm leading-snug font-medium">
+                                "Leveraging AI as a professional tool, <span class="text-[#800000] not-italic font-black">not a replacement.</span>"
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="flex items-center justify-center lg:justify-start gap-6">
+                    <a href="about-detail.html" class="inline-block bg-[#800000] text-white px-6 py-2.5 rounded-xl font-semibold shadow-lg shadow-red-950/50 hover:bg-red-700 transition-all duration-300 transform hover:-translate-y-0.5 text-center">
+    View Data
+</a>
+                    <button class="text-gray-400 text-sm font-bold hover:text-[#800000] transition-colors">My Projects →</button>
+                </div>
+            </div>
+
+            <!-- Sisi Kanan: Foto & Bulat Hijau (Cenat-Cenut) -->
+            <div class="w-full lg:w-1/3 flex justify-center lg:justify-end mt-12 lg:mt-0 relative">
+                <div class="relative">
+                    <!-- Frame Foto -->
+                    <div class="w-64 h-80 rounded-2xl overflow-hidden shadow-2xl border-[6px] border-white relative z-10 bg-gray-200">
+                        <img src="foto formal.jpeg" alt="Nazwa Hayati" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- Label Floating + Bulat Hijau Cenat-Cenut (PENTING: Z-index dipertinggi) -->
+                    <div class="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white px-4 py-2 rounded-lg shadow-xl border border-gray-50 flex items-center gap-2 z-30">
+                        <div class="relative flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                        </div>
+                        <span class="text-[10px] font-black text-gray-800 uppercase tracking-tighter whitespace-nowrap">STUDENT @ SMK N TENGARAN</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- SKILL -->
+<section id="skills-section" class="py-20 bg-[#4a0000] min-h-screen flex items-center">
+    <div class="max-w-5xl mx-auto px-6 w-full">
+        
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-white tracking-[0.4em] uppercase">SKILL</h2>
+            <div class="h-1 w-12 bg-red-500 mx-auto mt-2"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            
+            <div class="bg-black/30 backdrop-blur-md border border-white/5 p-4 rounded-xl shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" class="w-6 h-6">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <h3 class="text-white text-[11px] font-bold">HTML5</h3>
+                            <span class="text-white/60 text-[10px]">90%</span>
+                        </div>
+                        <div class="w-full bg-black/40 rounded-full overflow-hidden" style="height: 6px !important;">
+                            <div class="bar-merah bg-red-600 h-full transition-all duration-[2000ms]" style="width: 0%;" data-target="90%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-black/30 backdrop-blur-md border border-white/5 p-4 rounded-xl shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" class="w-6 h-6">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <h3 class="text-white text-[11px] font-bold uppercase">UI DESIGN</h3>
+                            <span class="text-white/60 text-[10px]">75%</span>
+                        </div>
+                        <div class="w-full bg-black/40 rounded-full overflow-hidden" style="height: 6px !important;">
+                            <div class="bar-merah bg-red-600 h-full transition-all duration-[2000ms]" style="width: 0%;" data-target="75%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-black/30 backdrop-blur-md border border-white/5 p-4 rounded-xl shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" class="w-6 h-6">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <h3 class="text-white text-[11px] font-bold uppercase">CSS3</h3>
+                            <span class="text-white/60 text-[10px]">80%</span>
+                        </div>
+                        <div class="w-full bg-black/40 rounded-full overflow-hidden" style="height: 6px !important;">
+                            <div class="bar-merah bg-red-600 h-full transition-all duration-[2000ms]" style="width: 0%;" data-target="80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-black/30 backdrop-blur-md border border-white/5 p-4 rounded-xl shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg" class="w-6 h-6">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <h3 class="text-white text-[11px] font-bold uppercase">BOOTSTRAP</h3>
+                            <span class="text-white/60 text-[10px]">70%</span>
+                        </div>
+                        <div class="w-full bg-black/40 rounded-full overflow-hidden" style="height: 6px !important;">
+                            <div class="bar-merah bg-red-600 h-full transition-all duration-[2000ms]" style="width: 0%;" data-target="70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-black/30 backdrop-blur-md border border-white/5 p-4 rounded-xl shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="w-6 h-6">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <h3 class="text-white text-[11px] font-bold uppercase">JAVASCRIPT</h3>
+                            <span class="text-white/60 text-[10px]">65%</span>
+                        </div>
+                        <div class="w-full bg-black/40 rounded-full overflow-hidden" style="height: 6px !important;">
+                            <div class="bar-merah bg-red-600 h-full transition-all duration-[2000ms]" style="width: 0%;" data-target="65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-black/30 backdrop-blur-md border border-white/5 p-4 rounded-xl shadow-2xl">
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shrink-0">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" class="w-6 h-6">
+                    </div>
+                    <div class="flex-grow">
+                        <div class="flex justify-between items-end mb-1.5">
+                            <h3 class="text-white text-[11px] font-bold uppercase">TAILWIND</h3>
+                            <span class="text-white/60 text-[10px]">60%</span>
+                        </div>
+                        <div class="w-full bg-black/40 rounded-full overflow-hidden" style="height: 6px !important;">
+                            <div class="bar-merah bg-red-600 h-full transition-all duration-[2000ms]" style="width: 0%;" data-target="60%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- PROJECT -->
+ <section id="projects-section" class="py-12 bg-[#2b0202] overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6 mb-6 text-center">
+        <h2 class="text-3xl font-bold text-white tracking-[0.4em] uppercase">PROJECT</h2>
+        <div class="h-1 w-16 bg-red-600 mx-auto mt-2"></div>
+    </div>
+
+    <div class="relative flex overflow-x-hidden">
+        <div id="project-slider" class="flex whitespace-nowrap animate-infinite-scroll py-6">
+            
+            <div class="inline-block px-3">
+                <div class="w-[280px] bg-[#3d0101] rounded-[2rem] p-5 shadow-2xl border border-white/5 transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-white text-xs font-bold mb-4 text-center uppercase tracking-tight overflow-hidden text-ellipsis">Frist Semester Project Assignment</h3>
+                    <div class="bg-white rounded-2xl overflow-hidden mb-5 h-[160px]">
+                        <img src="project 1.png" class="w-full h-full object-cover" alt="Project 1">
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <a href="https://safitririandhani-del.github.io/lusana.official.web/website.html" target="_blank" class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition text-center block">VIEW ALL ↗</a>
+                        <button class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition">DETAILS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inline-block px-3">
+                <div class="w-[280px] bg-[#3d0101] rounded-[2rem] p-5 shadow-2xl border border-white/5 transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-white text-xs font-bold mb-4 text-center uppercase tracking-tight">PROJECT 2 - SMK DIGITAL</h3>
+                    <div class="bg-white rounded-2xl overflow-hidden mb-5 h-[160px]">
+                        <img src="project 2.png" class="w-full h-full object-cover" alt="Project 2">
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <a href="https://safitririandhani-del.github.io/lusana.official.web/website.html" target="_blank" class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition text-center block">VIEW ALL ↗</a>
+                        <button class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition">DETAILS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inline-block px-3">
+                <div class="w-[280px] bg-[#3d0101] rounded-[2rem] p-5 shadow-2xl border border-white/5 transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-white text-xs font-bold mb-4 text-center uppercase tracking-tight">PROJECT 3 - ENVIRONMENT</h3>
+                    <div class="bg-white rounded-2xl overflow-hidden mb-5 h-[160px]">
+                        <img src="project 3.png" class="w-full h-full object-cover" alt="Project 3">
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <a href=" https://nazwahayatii.github.io/TUGAS-3/" target="_blank" class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition text-center block">VIEW ALL ↗</a>
+                        <button class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition">DETAILS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inline-block px-3">
+                <div class="w-[280px] bg-[#3d0101] rounded-[2rem] p-5 shadow-2xl border border-white/5 transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-white text-xs font-bold mb-4 text-center uppercase tracking-tight">PROJECT 4 - NATURAL</h3>
+                    <div class="bg-white rounded-2xl overflow-hidden mb-5 h-[160px]">
+                        <img src="project 4.png" class="w-full h-full object-cover" alt="Project 4">
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <a href="  https://nazwahayatii.github.io/TUGAS-4---NATURE/" target="_blank" class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition text-center block">VIEW ALL ↗</a>
+                        <button class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition">DETAILS</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inline-block px-3">
+                <div class="w-[280px] bg-[#3d0101] rounded-[2rem] p-5 shadow-2xl border border-white/5 transition-transform duration-300 hover:scale-105">
+                    <h3 class="text-white text-xs font-bold mb-4 text-center uppercase tracking-tight">PROJECT 5 - HEALTHY FOOD</h3>
+                    <div class="bg-white rounded-2xl overflow-hidden mb-5 h-[160px]">
+                        <img src="project 5.png" class="w-full h-full object-cover" alt="Project 5">
+                    </div>
+                    <div class="flex justify-between gap-3">
+                        <a href="https://nazwahayatii.github.io/TUGAS-5-HEALTHY-FOOD-AND-CATHERING-/" target="_blank" class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition text-center block">VIEW ALL ↗</a>
+                        <button class="flex-1 bg-white text-black font-bold py-2 rounded-full text-[10px] hover:bg-gray-200 transition">DETAILS</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<section id="contact-section" class="py-20 bg-[#1a0101] text-white font-sans overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6">
+        
+        <div class="text-center mb-12" data-aos="fade-up" data-aos-duration="800">
+            <h2 class="text-4xl font-extrabold tracking-wide text-white uppercase">
+                CONTACT US
+            </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            
+            <div class="bg-[#2b0202] p-8 rounded-2xl border border-white/5 shadow-2xl space-y-6 transition-all duration-500 ease-in-out hover:shadow-[0_0_30px_rgba(239,68,68,0.25)] hover:border-red-600/30 flex flex-col justify-between"
+                 data-aos="fade-up" data-aos-delay="200" data-aos-duration="800">
+                
+                <div>
+                    <h3 class="text-3xl font-bold text-white mb-8">
+                        Get In Touch
+                    </h3>
+                    
+                    <div class="space-y-5">
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 flex items-center justify-center text-red-500 text-lg shrink-0">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <p class="text-sm text-white/80">
+                                Deresan Village, Susukan District, Semarang Regency
+                            </p>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 flex items-center justify-center text-red-500 text-lg shrink-0">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <a href="mailto:nazwahayatiii@gmail.com" class="text-sm text-white/80 hover:text-red-400 transition-colors">
+                                nazwahayatiii@gmail.com
+                            </a>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 flex items-center justify-center text-red-500 text-lg shrink-0">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <a href="https://wa.me/6288985631061" target="_blank" class="text-sm text-white/80 hover:text-red-400 transition-colors">
+                                (+62) 889-8563-1061
+                            </a>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div class="w-5 h-5 flex items-center justify-center text-red-500 text-lg shrink-0">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <a href="https://instagram.com/blue.f0fish" target="_blank" class="text-sm text-white/80 hover:text-red-400 transition-colors italic">
+                                @blue.f0fish
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <form class="bg-[#2b0202]/40 p-8 rounded-2xl border border-white/5 shadow-2xl flex flex-col justify-between space-y-4 transition-all duration-500 ease-in-out hover:shadow-[0_0_30px_rgba(239,68,68,0.25)] hover:border-red-600/20" 
+                  data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
+                
+                <div class="space-y-4 w-full">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <input type="text" placeholder="Your Name" required
+                                class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/60 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all duration-300">
+                        </div>
+                        <div>
+                            <input type="tel" placeholder="Your Phone"
+                                class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/60 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all duration-300">
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="email" placeholder="Your Email" required
+                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/60 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all duration-300">
+                    </div>
+
+                    <div>
+                        <textarea placeholder="Your Message" rows="4" required
+                            class="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-white/60 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition-all duration-300 resize-none"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-[#4a0404] via-red-600 to-[#4a0404] hover:from-red-600 hover:to-red-700 text-white font-bold py-3.5 px-6 rounded-full text-xs tracking-widest uppercase shadow-md transition-all duration-300 active:scale-[0.99] mt-2">
+                    Send Message
+                </button>
+            </form>
+
+        </div>
+    </div>
+</section>
+<!-- footer -->
+<footer class="bg-gradient-to-r from-[#2b0202] via-[#4a0404] to-[#2b0202] text-white py-12 px-8 border-t border-white/5">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left items-start">
+        
+        <div class="flex flex-col items-center md:items-start">
+            <div class="flex items-center gap-4 text-left">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-red-600 shadow-lg shrink-0">
+                    <img src="foto formal.jpeg" alt="Nazwa Hayati" class="w-full h-full object-cover">
+                </div>
+                <div>
+                    <h3 class="text-base font-bold mb-1">Contact Me</h3>
+                    <p class="text-white/70 text-xs leading-relaxed max-w-[180px]">
+                        Feel free to reach out for collaboration or just a friendly chat.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center md:items-center w-full">
+            <div class="text-left w-fit">
+                <h3 class="text-base font-bold mb-3 text-center md:text-left">Follow Me</h3> 
+                <ul class="space-y-2"> 
+                    <li>
+                        <a href="https://instagram.com/blue.f0fish" target="_blank" class="flex items-center gap-2 hover:text-red-500 transition-all duration-300 group">
+                            <i class="fab fa-instagram text-base group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-medium italic">@blue.f0fish</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://tiktok.com/@na_nzwaa" target="_blank" class="flex items-center gap-2 hover:text-red-500 transition-all duration-300 group">
+                            <i class="fab fa-tiktok text-base group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-medium italic">@na_nzwaa</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/nazwahayatiii" target="_blank" class="flex items-center gap-2 hover:text-red-500 transition-all duration-300 group">
+                            <i class="fab fa-github text-base group-hover:scale-110 transition-transform"></i>
+                            <span class="text-xs font-medium italic">nazwahayatiii</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center md:items-center w-full">
+            <div class="text-left w-fit">
+                <h3 class="text-base font-bold mb-2 text-center md:text-left">Quick Me</h3>
+                <ul class="space-y-1 text-xs leading-tight"> 
+                    <li>
+                        <a href="#home" class="flex items-center gap-2 hover:text-red-500 transition-colors group py-0.5">
+                            <i class="fas fa-home opacity-50 group-hover:opacity-100 text-[10px]"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#about" class="flex items-center gap-2 hover:text-red-500 transition-colors group py-0.5">
+                            <i class="fas fa-user opacity-50 group-hover:opacity-100 text-[10px]"></i>
+                            <span>About</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#skills-section" class="flex items-center gap-2 hover:text-red-500 transition-colors group py-0.5">
+                            <i class="fas fa-code opacity-50 group-hover:opacity-100 text-[10px]"></i>
+                            <span>Skills</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#projects-section" class="flex items-center gap-2 hover:text-red-500 transition-colors group py-0.5">
+                            <i class="fas fa-folder-open opacity-50 group-hover:opacity-100 text-[10px]"></i>
+                            <span>Projects</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center md:items-start w-full">
+            <h3 class="text-base font-bold mb-3">Newsletter</h3>
+            <p class="text-white/70 text-xs mb-3 max-w-[240px]">
+                Get exclusive updates right to your inbox.
+            </p>
+            <form class="w-full max-w-[240px] space-y-2">
+                <input type="email" placeholder="Email" required
+                    class="w-full bg-black/40 border border-white/20 rounded-md px-3 py-2 text-xs text-white placeholder-white/30 focus:outline-none focus:border-red-600 transition-colors">
+                <button type="submit" 
+                    class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-md text-xs tracking-wider transition-colors">
+                    Sign Up
+                </button>
+            </form>
+        </div>
+
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-white/10 text-center">
+        <p class="text-xs text-white/50 tracking-widest">
+            © 2026 <span class="font-bold text-white">Nazwa Hayati</span>. All Rights Reserved.
+        </p>
+    </div>
+</footer>
+<div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+    
+    <div class="relative w-full max-w-md bg-[#2b0202] border border-white/10 rounded-3xl p-8 shadow-2xl transform scale-95 transition-all duration-300 id-modal-content">
+        
+        <button id="closeModalBtn" class="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
+            <i class="fa-solid fa-xmark text-xl"></i>
+        </button>
+
+        <div class="text-center mb-6">
+            <h3 class="text-2xl font-bold text-white tracking-wide">Welcome Back</h3>
+            <p class="text-white/60 text-xs mt-1">Please enter your details to sign in</p>
+        </div>
+
+        <form action="#" class="space-y-4" onsubmit="event.preventDefault(); alert('Login Berhasil!'); toggleModal();">
+            <div>
+                <label class="block text-white/70 text-xs font-semibold mb-1.5 ml-1">Full Name</label>
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-user absolute left-4 text-white/40 text-sm"></i>
+                    <input type="text" required placeholder="Nazwa Hayati" 
+                           class="w-full bg-black/30 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-white/70 text-xs font-semibold mb-1.5 ml-1">Email Address</label>
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-envelope absolute left-4 text-white/40 text-sm"></i>
+                    <input type="email" required placeholder="nazwa@example.com" 
+                           class="w-full bg-black/30 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-white/70 text-xs font-semibold mb-1.5 ml-1">Password</label>
+                <div class="relative flex items-center">
+                    <i class="fa-solid fa-lock absolute left-4 text-white/40 text-sm"></i>
+                    <input type="password" required placeholder="••••••••" 
+                           class="w-full bg-black/30 border border-white/10 rounded-xl py-3 pl-11 pr-4 text-white text-sm focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 transition">
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-red-700 hover:bg-red-600 text-white font-bold py-3 rounded-xl text-sm shadow-lg shadow-red-900/30 transition-all duration-300 mt-2 active:scale-[0.98]">
+                SIGN IN
+            </button>
+        </form>
+
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
